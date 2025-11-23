@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Holofit 90 • Hologrammi Journey</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HUD -->
+  <header id="hud">
+    <div class="hud-left">
+      <div class="hud-logo">
+        <span class="holofit-h">H</span>
+        <div class="hud-logo-text">
+          <span class="holofit-title">HOLOFIT 90</span>
+          <span class="holofit-sub">HOLOGRAM JOURNEY • REPS ONLY</span>
+        </div>
+      </div>
+    </div>
+    <div class="hud-right">
+      <div class="hud-chip">
+        <span>PÄIVÄ</span>
+        <strong id="hud-day">1 / 90</strong>
+      </div>
+      <div class="hud-chip">
+        <span>STREAK</span>
+        <strong id="hud-streak">0</strong>
+      </div>
+      <div class="hud-chip small">
+        <span>REPS YHT.</span>
+        <strong id="hud-total-reps">0</strong>
+      </div>
+      <button id="btn-reset" class="btn danger tiny">Reset</button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="layout">
+
+    <!-- AVATAR + PATH -->
+    <section id="avatar-card" class="card">
+      <h2>HOLOGRAM JOURNEY</h2>
+      <p class="sub-hint">
+        Avatar kasvaa toistojen mukaan ja kävelee 90 päivän polkua.
+        Polun väri kertoo päivän Fat-Burn -tason.
+      </p>
+
+      <div id="avatar-path-wrapper">
+        <div id="avatar-container">
+          <div id="avatar">
+            <div class="avatar-glow"></div>
+            <div class="avatar-body">
+              <div class="avatar-head"></div>
+              <div class="avatar-torso"></div>
+              <div class="avatar-shoulders"></div>
+              <div class="avatar-arm avatar-arm-left"></div>
+              <div class="avatar-arm avatar-arm-right"></div>
+              <div class="avatar-leg avatar-leg-left"></div>
+              <div class="avatar-leg avatar-leg-right"></div>
+              <div class="avatar-calf avatar-calf-left"></div>
+              <div class="avatar-calf avatar-calf-right"></div>
+              <div class="avatar-core"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="path-strip-wrapper">
+          <div id="path-strip">
+            <!-- 90 nodes JS:llä -->
+          </div>
+        </div>
+      </div>
+
+      <div id="quick-stats">
+        <div class="qstat">
+          <span>Tänään reps</span>
+          <strong id="stat-today-reps">0</strong>
+        </div>
+        <div class="qstat">
+          <span>Burn-taso</span>
+          <strong id="stat-intensity">—</strong>
+        </div>
+        <div class="qstat">
+          <span>PR-päivät</span>
+          <strong id="stat-pr-days">0</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMOJI INPUT -->
+    <section id="input-card" class="card">
+      <h2>QUICK REPS</h2>
+      <p class="sub-hint">Napauta kehonosaa → valitse toistot. Ei lomakkeita.</p>
+
+      <div id="emoji-grid">
+        <button class="emoji-btn" data-part="biceps" title="Hauis">💪</button>
+        <button class="emoji-btn" data-part="triceps" title="Ojentaja">🦾</button>
+        <button class="emoji-btn" data-part="shoulders" title="Olkapäät">🫱</button>
+        <button class="emoji-btn" data-part="chest" title="Rinta">🫀</button>
+        <button class="emoji-btn" data-part="back" title="Selkä">🕺</button>
+        <button class="emoji-btn" data-part="core" title="Core / Vatsa">🧍‍♂️</button>
+        <button class="emoji-btn" data-part="quads" title="Reidet">🦵</button>
+        <button class="emoji-btn" data-part="calves" title="Pohkeet">🦶</button>
+        <button class="emoji-btn" data-part="cardio" title="Kävely / Juoksu">🏃‍♂️</button>
+      </div>
+
+      <button id="btn-finalize" class="btn primary fullwidth">
+        Finalize Day • Avatar askel eteenpäin
+      </button>
+    </section>
+
+    <!-- FAST MISSION (offline "AI") -->
+    <section id="mission-card" class="card">
+      <h2>FAST MISSION 🔥</h2>
+      <p class="sub-hint">
+        Valitse tilanne niin saat valmiin minipumpin. Missionin toistot lisätään tälle päivälle.
+      </p>
+
+      <div id="mission-grid">
+        <button class="mission-btn" data-mission="interview">🎤 Interview Pump</button>
+        <button class="mission-btn" data-mission="stage">🎭 Stage / Lava</button>
+        <button class="mission-btn" data-mission="photoshoot">📸 Photoshoot</button>
+        <button class="mission-btn" data-mission="date">❤️ Date Pump</button>
+        <button class="mission-btn" data-mission="game">⚽ Game Ready</button>
+        <button class="mission-btn" data-mission="fatburn">🔥 Shred 10 min</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- REPS POPUP -->
+  <div id="reps-backdrop">
+    <div id="reps-modal">
+      <h3 id="reps-title">Toistot</h3>
+      <p class="sub-hint">Valitse nopeasti tai syötä oma määrä.</p>
+      <div id="reps-quick">
+        <button class="btn ghost reps-choice" data-reps="5">+5</button>
+        <button class="btn ghost reps-choice" data-reps="10">+10</button>
+        <button class="btn ghost reps-choice" data-reps="15">+15</button>
+      </div>
+      <div id="reps-custom-row">
+        <input id="reps-custom-input" type="number" min="1" placeholder="Custom reps" />
+        <button id="reps-custom-btn" class="btn primary small">OK</button>
+      </div>
+      <button id="reps-cancel" class="btn ghost tiny fullwidth">Peruuta</button>
+    </div>
+  </div>
+
+  <!-- DAY INFO POPUP -->
+  <div id="dayinfo-backdrop">
+    <div id="dayinfo-modal">
+      <div class="modal-header">
+        <h3 id="dayinfo-title">Päivä</h3>
+        <button id="dayinfo-close" class="btn ghost tiny">Sulje</button>
+      </div>
+      <section class="modal-section">
+        <p><span>Reps yhteensä:</span> <strong id="dayinfo-total">0</strong></p>
+        <p><span>Burn-score:</span> <strong id="dayinfo-burn">0</strong></p>
+        <p><span>Burn-taso:</span> <strong id="dayinfo-burn-label">—</strong></p>
+        <ul id="dayinfo-bodyparts"></ul>
+      </section>
+    </div>
+  </div>
+
+  <!-- FAST MISSION MODAL -->
+  <div id="mission-backdrop">
+    <div id="mission-modal">
+      <div class="modal-header">
+        <h3 id="mission-title">Fast Mission</h3>
+        <button id="mission-close" class="btn ghost tiny">Sulje</button>
+      </div>
+      <section class="modal-section">
+        <p><span>Tavoite:</span> <strong id="mission-goal"></strong></p>
+        <p><span>Kesto / fiilis:</span> <strong id="mission-note"></strong></p>
+        <ul id="mission-steps"></ul>
+      </section>
+      <button id="mission-apply" class="btn primary fullwidth">
+        Lataa mission reps tälle päivälle
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
